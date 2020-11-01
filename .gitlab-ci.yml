@@ -1,0 +1,17 @@
+stages:
+  - linter
+
+
+php-metrics:
+  image: jakzal/phpqa
+  stage: linter
+  script: phpmetrics --report-html=var/php-metrics src
+  allow_failure: true
+
+phpcs:
+  stage: linter
+  image: pipelinecomponents/php-codesniffer:latest
+  script:
+    - phpcs -s -p --colors --ignore=./src/Kernel.php --extensions=php --standard=PSR12 ./src
+
+
