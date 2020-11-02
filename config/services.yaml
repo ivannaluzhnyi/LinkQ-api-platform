@@ -31,5 +31,9 @@ services:
         decorates: 'api_platform.swagger.normalizer.documentation'
         arguments: [ '@App\Swagger\SwaggerDecorator.inner' ]
         autoconfigure: false
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+
+    app.doctrine.hash_password_subscripber:
+        class: App\EventSubscriber\HashPasswordSubscriber
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }

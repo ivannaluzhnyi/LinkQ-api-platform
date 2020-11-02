@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PropertyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,7 +27,7 @@ class Property
     private ?string $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private ?string $description;
 
@@ -40,6 +42,19 @@ class Property
      * @ORM\JoinColumn(nullable=false)
      */
     private ?Feature $features;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="property", fetch="EAGER")
+     */
+    private Collection $media;
+
+    /**
+     * Property constructor.
+     */
+    public function __construct()
+    {
+        $this->media = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -121,6 +136,55 @@ class Property
     public function setFeatures(Feature $features): self
     {
         $this->features = $features;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    /**
+     * @param Media $media
+     * @return $this
+     */
+    public function addMedia(Media $media): self
+    {
+        if (!$this->media->contains($media)) {
+            $this->media[] = $media;
+            $media->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Collection $collection
+     */
+    public function addMedium(Collection $collection): void
+    {
+        foreach ($collection as $item) {
+            $this->addMedia($item);
+        }
+    }
+
+    /**
+     * @param Media $media
+     * @return $this
+     */
+    public function removeMedia(Media $media): self
+    {
+        if ($this->media->contains($media)) {
+            $this->media->removeElement($media);
+            // set the owning side to null (unless already changed)
+            if ($media->getProperty() === $this) {
+                $media->setProperty(null);
+            }
+        }
 
         return $this;
     }
