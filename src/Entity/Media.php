@@ -38,9 +38,9 @@ class Media
     private ?string $uri;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Property::class, inversedBy="media")
+     * @ORM\ManyToOne(targetEntity=Property::class, inversedBy="medium")
      */
-    private ?Property $property;
+    private Property $property;
 
     /**
      * @return int
@@ -116,10 +116,10 @@ class Media
     }
 
     /**
-     * @param Property|null $property
+     * @param Property $property
      * @return $this
      */
-    public function setProperty(?Property $property): self
+    public function setProperty(Property $property): self
     {
         $this->property = $property;
 

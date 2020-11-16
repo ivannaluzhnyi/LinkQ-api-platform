@@ -62,11 +62,10 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
 
             $nbOfMedias = rand(1, 5);
 
-            $medias = $this->mediaRepository->findBy([], [], $nbOfMedias, $this->mediaCursor);
-
-            $mediaCollection = new ArrayCollection($medias);
-            $property->addMedium($mediaCollection);
-
+            $medium = $this->mediaRepository->findBy([], [], $nbOfMedias, $this->mediaCursor);
+            foreach ($medium as $media) {
+                $property->addMedium($media);
+            }
             $this->mediaCursor += $nbOfMedias;
 
             $manager->persist($property);

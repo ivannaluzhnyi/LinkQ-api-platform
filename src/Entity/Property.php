@@ -44,16 +44,16 @@ class Property
     private ?Feature $features;
 
     /**
-     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="property", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="property")
      */
-    private Collection $media;
+    private $medium;
 
     /**
      * Property constructor.
      */
     public function __construct()
     {
-        $this->media = new ArrayCollection();
+        $this->medium = new ArrayCollection();
     }
 
     /**
@@ -143,46 +143,36 @@ class Property
     /**
      * @return Collection|Media[]
      */
-    public function getMedia(): Collection
+    public function getMedium(): Collection
     {
-        return $this->media;
+        return $this->medium;
     }
 
     /**
-     * @param Media $media
+     * @param Media $medium
      * @return $this
      */
-    public function addMedia(Media $media): self
+    public function addMedium(Media $medium): self
     {
-        if (!$this->media->contains($media)) {
-            $this->media[] = $media;
-            $media->setProperty($this);
+        if (!$this->medium->contains($medium)) {
+            $this->medium[] = $medium;
+            $medium->setProperty($this);
         }
 
         return $this;
     }
 
     /**
-     * @param Collection $collection
-     */
-    public function addMedium(Collection $collection): void
-    {
-        foreach ($collection as $item) {
-            $this->addMedia($item);
-        }
-    }
-
-    /**
-     * @param Media $media
+     * @param Media $medium
      * @return $this
      */
-    public function removeMedia(Media $media): self
+    public function removeMedium(Media $medium): self
     {
-        if ($this->media->contains($media)) {
-            $this->media->removeElement($media);
+        if ($this->medium->contains($medium)) {
+            $this->medium->removeElement($medium);
             // set the owning side to null (unless already changed)
-            if ($media->getProperty() === $this) {
-                $media->setProperty(null);
+            if ($medium->getProperty() === $this) {
+                $medium->setProperty(null);
             }
         }
 
