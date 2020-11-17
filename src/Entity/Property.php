@@ -49,11 +49,22 @@ class Property
     private $medium;
 
     /**
+     * @ORM\OneToMany(targetEntity=Application::class, mappedBy="Property", orphanRemoval=true)
+     */
+    private $applications;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="property")
+     */
+    private $UserRelated;
+
+    /**
      * Property constructor.
      */
     public function __construct()
     {
         $this->medium = new ArrayCollection();
+        $this->applications = new ArrayCollection();
     }
 
     /**
@@ -175,6 +186,49 @@ class Property
                 $medium->setProperty(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Application[]
+     */
+    public function getApplications(): Collection
+    {
+        return $this->applications;
+    }
+
+    public function addApplication(Application $application): self
+    {
+        if (!$this->applications->contains($application)) {
+            $this->applications[] = $application;
+            $application->setProperty($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplication(Application $application): self
+    {
+        if ($this->applications->contains($application)) {
+            $this->applications->removeElement($application);
+            // set the owning side to null (unless already changed)
+            if ($application->getProperty() === $this) {
+                $application->setProperty(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUserRelated(): ?User
+    {
+        return $this->UserRelated;
+    }
+
+    public function setUserRelated(?User $UserRelated): self
+    {
+        $this->UserRelated = $UserRelated;
 
         return $this;
     }
