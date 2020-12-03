@@ -20,35 +20,45 @@ class Application
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $buyer;
+    private ?User $buyer;
 
     /**
      * @ORM\ManyToOne(targetEntity=Property::class, inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Property;
+    private ?Property $property;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $offer;
+    private ?float $offer;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return User
+     */
     public function getBuyer(): ?User
     {
         return $this->buyer;
     }
 
+    /**
+     * @param ?User $buyer
+     * @return $this
+     */
     public function setBuyer(?User $buyer): self
     {
         $this->buyer = $buyer;
@@ -56,23 +66,37 @@ class Application
         return $this;
     }
 
+    /**
+     * @return Property
+     */
     public function getProperty(): ?Property
     {
-        return $this->Property;
+        return $this->property;
     }
 
-    public function setProperty(?Property $Property): self
+    /**
+     * @param ?Property $property
+     * @return $this
+     */
+    public function setProperty(?Property $property): self
     {
-        $this->Property = $Property;
+        $this->property = $property;
 
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getOffer(): ?float
     {
         return $this->offer;
     }
 
+    /**
+     * @param float|null $offer
+     * @return $this
+     */
     public function setOffer(float $offer): self
     {
         $this->offer = $offer;

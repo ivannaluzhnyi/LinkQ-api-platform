@@ -59,6 +59,7 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
                     ->setBedrooms($faker->numberBetween(1, 5))
                     ->setGarages($faker->numberBetween(1, 3))
             );
+            $property->setUserRelated(null);
 
             $nbOfMedias = rand(1, 5);
 

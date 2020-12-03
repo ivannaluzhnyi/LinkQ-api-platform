@@ -5,9 +5,13 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GuarantorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource()
+ * @ApiFilter(SearchFilter::class, properties={"FirstName": "partial", "LastName": "partial"})
  * @ORM\Entity(repositoryClass=GuarantorRepository::class)
  */
 class Guarantor
@@ -16,96 +20,139 @@ class Guarantor
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user_get_full"})
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_get_full"})
      */
-    private $FirstName;
+    private ?string $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_get_full"})
      */
-    private $LastName;
+    private ?string $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_get_full"})
      */
-    private $Relation;
+    private ?string $relation;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups({"user_get_full"})
      */
-    private $Salary;
+    private ?float $salary;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="guarantor")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $UserRelated;
+    private ?User $userRelated;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFirstName(): ?string
     {
-        return $this->FirstName;
+        return $this->firstName;
     }
 
-    public function setFirstName(string $FirstName): self
+    /**
+     * @param string|null $firstName
+     * @return $this
+     */
+    public function setFirstName(string $firstName): self
     {
-        $this->FirstName = $FirstName;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getLastName(): ?string
     {
-        return $this->LastName;
+        return $this->lastName;
     }
 
-    public function setLastName(string $LastName): self
+    /**
+     * @param string|null $lastName
+     * @return $this
+     */
+    public function setLastName(string $lastName): self
     {
-        $this->LastName = $LastName;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getRelation(): ?string
     {
-        return $this->Relation;
+        return $this->relation;
     }
 
-    public function setRelation(string $Relation): self
+    /**
+     * @param string|null $relation
+     * @return $this
+     */
+    public function setRelation(string $relation): self
     {
-        $this->Relation = $Relation;
+        $this->relation = $relation;
 
         return $this;
     }
 
+    /**
+     * @return float|null
+     */
     public function getSalary(): ?float
     {
-        return $this->Salary;
+        return $this->salary;
     }
 
-    public function setSalary(float $Salary): self
+    /**
+     * @param float|null $salary
+     * @return $this
+     */
+    public function setSalary(float $salary): self
     {
-        $this->Salary = $Salary;
+        $this->salary = $salary;
 
         return $this;
     }
 
+    /**
+     * @return User
+     */
     public function getUserRelated(): ?User
     {
-        return $this->UserRelated;
+        return $this->userRelated;
     }
 
-    public function setUserRelated(?User $UserRelated): self
+    /**
+     * @param ?User $userRelated
+     * @return $this
+     */
+    public function setUserRelated(?User $userRelated): self
     {
-        $this->UserRelated = $UserRelated;
+        $this->userRelated = $userRelated;
 
         return $this;
     }

@@ -5,9 +5,31 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\FeatureRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
  * @ApiResource()
+ * @ApiFilter(
+ *     SearchFilter::class,
+ *     properties={
+ *      "size": "exact",
+ *      "rooms": "exact",
+ *      "bedrooms": "exact",
+ *      "bathrooms": "exact",
+ *      "garages": "exact"
+ *     }
+ * )
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *      "parameterName": "groups",
+ *      "overrideDefaultGroups": false,
+ *      "whitelist": NULL
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=FeatureRepository::class)
  */
 class Feature
@@ -16,36 +38,43 @@ class Feature
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private ?int $size;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private ?int $rooms;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private ?int $bedrooms;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private ?int $bathrooms;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private ?int $garages;
 
     /**
      * @ORM\OneToOne(targetEntity=Property::class, mappedBy="features", cascade={"persist", "remove"})
+     * @Groups({"feature_get_full", "feature_get"})
      */
     private ?Property $property;
 
@@ -66,7 +95,7 @@ class Feature
     }
 
     /**
-     * @param int $size
+     * @param int|null $size
      * @return $this
      */
     public function setSize(int $size): self
@@ -85,7 +114,7 @@ class Feature
     }
 
     /**
-     * @param int $rooms
+     * @param int|null $rooms
      * @return $this
      */
     public function setRooms(int $rooms): self
@@ -104,7 +133,7 @@ class Feature
     }
 
     /**
-     * @param int $bedrooms
+     * @param int|null $bedrooms
      * @return $this
      */
     public function setBedrooms(int $bedrooms): self
@@ -123,7 +152,7 @@ class Feature
     }
 
     /**
-     * @param int $bathrooms
+     * @param int|null $bathrooms
      * @return $this
      */
     public function setBathrooms(int $bathrooms): self
@@ -142,7 +171,7 @@ class Feature
     }
 
     /**
-     * @param int $garages
+     * @param int|null $garages
      * @return $this
      */
     public function setGarages(int $garages): self
@@ -153,7 +182,7 @@ class Feature
     }
 
     /**
-     * @return Property|null
+     * @return Property
      */
     public function getProperty(): ?Property
     {

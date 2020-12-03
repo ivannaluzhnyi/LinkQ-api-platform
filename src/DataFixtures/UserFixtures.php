@@ -32,7 +32,7 @@ class UserFixtures extends Fixture
             $user->setBirthdate($faker->dateTimeBetween('-75 years', '-18 years'));
             $user->setRoles(['ROLE_USER']);
             $user->setPlainPassword('secret');
-
+            $user->setSalary($faker->randomFloat());
             $manager->persist($user);
         }
         $manager->flush();

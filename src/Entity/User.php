@@ -12,11 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
- * @ApiResource(attributes={
- *     "normalization_context"={"groups"={"read"}}
- * })
+ * @ApiResource()
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *      "parameterName": "groups",
+ *      "overrideDefaultGroups": false,
+ *      "whitelist": NULL
+ *     }
+ * )
+ * @ApiFilter(SearchFilter::class, properties={"firstname": "partial", "lastname": "partial"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="account")
  */
@@ -28,19 +38,33 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"read"})
+     * @Groups({
+     *     "user_get_full",
+     *     "user_get_signin",
+     *     "user_get",
+     *     "property_get_full",
+     *     "feature_get_full",
+     *     "address_get_full"
+     * })
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"read"})
+     * @Groups({"user_get_full", "user_get"})
      */
     private bool $is_active;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"read"})
+     * @Groups({
+     *     "user_get_full",
+     *     "user_get_signin",
+     *     "user_get",
+     *     "property_get_full",
+     *     "feature_get_full",
+     *     "address_get_full"
+     * })
      */
     private ?string $email;
 
@@ -52,6 +76,7 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Groups({"user_get_signin"})
      */
     private string $password;
 
@@ -62,45 +87,44 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read"})
+     * @Groups({"user_get_full", "user_get", "property_get_full", "feature_get_full"})
      */
     private ?string $firstname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"read"})
+     * @Groups({"user_get_full", "user_get", "property_get_full", "feature_get_full"})
      */
     private ?string $lastname;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * @Groups({"read"})
+     * @Groups({"user_get_full", "user_get", "property_get_full", "feature_get_full"})
      */
     private ?DateTimeInterface $birthdate;
 
     /**
      * @ORM\OneToMany(targetEntity=Application::class, mappedBy="buyer", orphanRemoval=true)
-     * @Groups({"read"})
      */
-    private $applications;
+    private Collection $applications;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     * @Groups({"read"})
+     * @Groups({"user_get_full", "user_get"})
      */
-    private $salary;
+    private ?float $salary;
 
     /**
-     * @ORM\OneToMany(targetEntity=Guarantor::class, mappedBy="UserRelated", orphanRemoval=true)
-     * @Groups({"read"})
+     * @ORM\OneToMany(targetEntity=Guarantor::class, mappedBy="userRelated", orphanRemoval=true)
+     * @Groups({"user_get_full", "user_get"})
      */
-    private $guarantor;
+    private Collection $guarantor;
 
     /**
-     * @ORM\OneToMany(targetEntity=Property::class, mappedBy="UserRelated")
-     * @Groups({"read"})
+     * @ORM\OneToMany(targetEntity=Property::class, mappedBy="userRelated")
+     * @Groups({"user_get_full", "user_get"})
      */
-    private $property;
+    private Collection $property;
 
     public function __construct()
     {
@@ -143,7 +167,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -174,7 +198,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     /**
@@ -278,7 +302,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return bool|null
+     * @return bool
      */
     public function getIsActive(): ?bool
     {
@@ -304,6 +328,10 @@ class User implements UserInterface
         return $this->applications;
     }
 
+    /**
+     * @param Application $application
+     * @return $this
+     */
     public function addApplication(Application $application): self
     {
         if (!$this->applications->contains($application)) {
@@ -314,6 +342,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Application $application
+     * @return $this
+     */
     public function removeApplication(Application $application): self
     {
         if ($this->applications->contains($application)) {
@@ -327,11 +359,18 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return float
+     */
     public function getSalary(): ?float
     {
         return $this->salary;
     }
 
+    /**
+     * @param float|null $salary
+     * @return $this
+     */
     public function setSalary(?float $salary): self
     {
         $this->salary = $salary;
@@ -347,6 +386,10 @@ class User implements UserInterface
         return $this->guarantor;
     }
 
+    /**
+     * @param Guarantor $guarantor
+     * @return $this
+     */
     public function addGuarantor(Guarantor $guarantor): self
     {
         if (!$this->guarantor->contains($guarantor)) {
@@ -357,6 +400,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Guarantor $guarantor
+     * @return $this
+     */
     public function removeGuarantor(Guarantor $guarantor): self
     {
         if ($this->guarantor->contains($guarantor)) {
@@ -378,6 +425,10 @@ class User implements UserInterface
         return $this->property;
     }
 
+    /**
+     * @param Property $property
+     * @return $this
+     */
     public function addProperty(Property $property): self
     {
         if (!$this->property->contains($property)) {
@@ -388,6 +439,10 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Property $property
+     * @return $this
+     */
     public function removeProperty(Property $property): self
     {
         if ($this->property->contains($property)) {

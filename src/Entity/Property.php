@@ -7,9 +7,22 @@ use App\Repository\PropertyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
  * @ApiResource()
+ * @ApiFilter(SearchFilter::class, properties={"title": "partial"})
+ * @ApiFilter(
+ *     GroupFilter::class,
+ *     arguments={
+ *      "parameterName": "groups",
+ *      "overrideDefaultGroups": false,
+ *      "whitelist": NULL
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=PropertyRepository::class)
  */
 class Property
@@ -18,45 +31,56 @@ class Property
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
      */
     private ?string $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
      */
     private ?string $description;
 
     /**
-     * @ORM\OneToOne(targetEntity=Address::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Address::class, inversedBy="property", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"user_get_full", "property_get", "property_get_full", "feature_get_full"})
      */
     private ?Address $address;
 
     /**
      * @ORM\OneToOne(targetEntity=Feature::class, inversedBy="property", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"property_get", "property_get_full", "address_get_full", "user_get_full"})
      */
     private ?Feature $features;
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="property")
+     * @Groups({"property_get", "property_get_full", "address_get_full"})
      */
-    private $medium;
+    private Collection $medium;
 
     /**
-     * @ORM\OneToMany(targetEntity=Application::class, mappedBy="Property", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Application::class,
+     *     mappedBy="property",
+     *     orphanRemoval=true,
+     *     cascade={"persist", "remove"}
+     * )
      */
-    private $applications;
+    private Collection $applications;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="property")
+     * @Groups({"property_get", "property_get_full", "feature_get_full"})
      */
-    private $UserRelated;
+    private ?User $userRelated;
 
     /**
      * Property constructor.
@@ -84,7 +108,7 @@ class Property
     }
 
     /**
-     * @param string $title
+     * @param string|null $title
      * @return $this
      */
     public function setTitle(string $title): self
@@ -103,7 +127,7 @@ class Property
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      * @return $this
      */
     public function setDescription(string $description): self
@@ -114,7 +138,7 @@ class Property
     }
 
     /**
-     * @return Address|null
+     * @return Address
      */
     public function getAddress(): ?Address
     {
@@ -133,7 +157,7 @@ class Property
     }
 
     /**
-     * @return Feature|null
+     * @return Feature
      */
     public function getFeatures(): ?Feature
     {
@@ -198,6 +222,10 @@ class Property
         return $this->applications;
     }
 
+    /**
+     * @param Application $application
+     * @return $this
+     */
     public function addApplication(Application $application): self
     {
         if (!$this->applications->contains($application)) {
@@ -208,6 +236,10 @@ class Property
         return $this;
     }
 
+    /**
+     * @param Application $application
+     * @return $this
+     */
     public function removeApplication(Application $application): self
     {
         if ($this->applications->contains($application)) {
@@ -221,14 +253,21 @@ class Property
         return $this;
     }
 
+    /**
+     * @return ?User
+     */
     public function getUserRelated(): ?User
     {
-        return $this->UserRelated;
+        return $this->userRelated;
     }
 
-    public function setUserRelated(?User $UserRelated): self
+    /**
+     * @param User|null $userRelated
+     * @return $this
+     */
+    public function setUserRelated(?User $userRelated): self
     {
-        $this->UserRelated = $UserRelated;
+        $this->userRelated = $userRelated;
 
         return $this;
     }

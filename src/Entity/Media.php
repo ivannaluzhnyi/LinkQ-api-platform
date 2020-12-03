@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\Timestampable;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource()
@@ -34,6 +35,7 @@ class Media
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"property_get_full", "address_get_full"})
      */
     private ?string $uri;
 
