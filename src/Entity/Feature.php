@@ -11,7 +11,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"feature_get"}},
+ * )
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={
@@ -26,7 +28,7 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
  *     GroupFilter::class,
  *     arguments={
  *      "parameterName": "groups",
- *      "overrideDefaultGroups": false,
+ *      "overrideDefaultGroups": true,
  *      "whitelist": NULL
  *     }
  * )

@@ -17,12 +17,20 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"user_get"}},
+ *     itemOperations={
+ *         "get",
+ *         "delete",
+ *         "put",
+ *         "patch",
+ *     }
+ * )
  * @ApiFilter(
  *     GroupFilter::class,
  *     arguments={
  *      "parameterName": "groups",
- *      "overrideDefaultGroups": false,
+ *      "overrideDefaultGroups": true,
  *      "whitelist": NULL
  *     }
  * )
@@ -109,10 +117,10 @@ class User implements UserInterface
     private Collection $applications;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      * @Groups({"user_get_full", "user_get"})
      */
-    private ?float $salary;
+    private ?int $salary;
 
     /**
      * @ORM\OneToMany(targetEntity=Guarantor::class, mappedBy="userRelated", orphanRemoval=true)
