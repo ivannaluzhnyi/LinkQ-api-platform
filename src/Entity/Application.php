@@ -20,27 +20,27 @@ class Application
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?User $buyer;
+    private User $buyer;
 
     /**
      * @ORM\ManyToOne(targetEntity=Property::class, inversedBy="applications")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Property $property;
+    private Property $property;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
-    private ?float $offer;
+    private int $offer;
 
     /**
-     * @return int|null
+     * @return int
      */
     public function getId(): ?int
     {
@@ -50,16 +50,16 @@ class Application
     /**
      * @return User
      */
-    public function getBuyer(): ?User
+    public function getBuyer(): User
     {
         return $this->buyer;
     }
 
     /**
-     * @param ?User $buyer
+     * @param User $buyer
      * @return $this
      */
-    public function setBuyer(?User $buyer): self
+    public function setBuyer(User $buyer): self
     {
         $this->buyer = $buyer;
 
@@ -69,16 +69,16 @@ class Application
     /**
      * @return Property
      */
-    public function getProperty(): ?Property
+    public function getProperty(): Property
     {
         return $this->property;
     }
 
     /**
-     * @param ?Property $property
+     * @param Property $property
      * @return $this
      */
-    public function setProperty(?Property $property): self
+    public function setProperty(Property $property): self
     {
         $this->property = $property;
 
@@ -86,18 +86,18 @@ class Application
     }
 
     /**
-     * @return float|null
+     * @return int
      */
-    public function getOffer(): ?float
+    public function getOffer(): int
     {
         return $this->offer;
     }
 
     /**
-     * @param float|null $offer
+     * @param int $offer
      * @return $this
      */
-    public function setOffer(float $offer): self
+    public function setOffer(int $offer): self
     {
         $this->offer = $offer;
 

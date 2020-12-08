@@ -35,33 +35,33 @@ class Property
      * @ORM\Column(type="integer")
      * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
      */
-    private ?int $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
      */
-    private ?string $title;
+    private string $title;
 
     /**
      * @ORM\Column(type="text")
      * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
      */
-    private ?string $description;
+    private string $description;
 
     /**
      * @ORM\OneToOne(targetEntity=Address::class, inversedBy="property", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"user_get_full", "property_get", "property_get_full", "feature_get_full"})
      */
-    private ?Address $address;
+    private Address $address;
 
     /**
      * @ORM\OneToOne(targetEntity=Feature::class, inversedBy="property", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"property_get", "property_get_full", "address_get_full", "user_get_full"})
      */
-    private ?Feature $features;
+    private Feature $features;
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="property")
@@ -94,23 +94,23 @@ class Property
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * @param string|null $title
+     * @param string $title
      * @return $this
      */
     public function setTitle(string $title): self
@@ -121,15 +121,15 @@ class Property
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getDescription(): ?string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @param string|null $description
+     * @param string $description
      * @return $this
      */
     public function setDescription(string $description): self
@@ -142,7 +142,7 @@ class Property
     /**
      * @return Address
      */
-    public function getAddress(): ?Address
+    public function getAddress(): Address
     {
         return $this->address;
     }
@@ -161,7 +161,7 @@ class Property
     /**
      * @return Feature
      */
-    public function getFeatures(): ?Feature
+    public function getFeatures(): Feature
     {
         return $this->features;
     }

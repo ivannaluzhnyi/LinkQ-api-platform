@@ -22,56 +22,56 @@ class Guarantor
      * @ORM\Column(type="integer")
      * @Groups({"user_get_full"})
      */
-    private ?int $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_get_full"})
      */
-    private ?string $firstName;
+    private string $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_get_full"})
      */
-    private ?string $lastName;
+    private string $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_get_full"})
      */
-    private ?string $relation;
+    private string $relation;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      * @Groups({"user_get_full"})
      */
-    private ?float $salary;
+    private int $salary;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="guarantor")
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?User $userRelated;
+    private User $userRelated;
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getFirstName(): ?string
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
 
     /**
-     * @param string|null $firstName
+     * @param string $firstName
      * @return $this
      */
     public function setFirstName(string $firstName): self
@@ -82,15 +82,15 @@ class Guarantor
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getLastName(): ?string
+    public function getLastName(): string
     {
         return $this->lastName;
     }
 
     /**
-     * @param string|null $lastName
+     * @param string $lastName
      * @return $this
      */
     public function setLastName(string $lastName): self
@@ -101,15 +101,15 @@ class Guarantor
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getRelation(): ?string
+    public function getRelation(): string
     {
         return $this->relation;
     }
 
     /**
-     * @param string|null $relation
+     * @param string $relation
      * @return $this
      */
     public function setRelation(string $relation): self
@@ -120,18 +120,18 @@ class Guarantor
     }
 
     /**
-     * @return float|null
+     * @return int
      */
-    public function getSalary(): ?float
+    public function getSalary(): int
     {
         return $this->salary;
     }
 
     /**
-     * @param float|null $salary
+     * @param int $salary
      * @return $this
      */
-    public function setSalary(float $salary): self
+    public function setSalary(int $salary): self
     {
         $this->salary = $salary;
 
@@ -141,16 +141,16 @@ class Guarantor
     /**
      * @return User
      */
-    public function getUserRelated(): ?User
+    public function getUserRelated(): User
     {
         return $this->userRelated;
     }
 
     /**
-     * @param ?User $userRelated
+     * @param User $userRelated
      * @return $this
      */
-    public function setUserRelated(?User $userRelated): self
+    public function setUserRelated(User $userRelated): self
     {
         $this->userRelated = $userRelated;
 

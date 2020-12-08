@@ -42,62 +42,63 @@ class Feature
      * @ORM\Column(type="integer")
      * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
-    private ?int $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
-    private ?int $size;
+    private int $size;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
-    private ?int $rooms;
+    private int $rooms;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
-    private ?int $bedrooms;
+    private int $bedrooms;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
-    private ?int $bathrooms;
+    private int $bathrooms;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
-    private ?int $garages;
+    private int $garages;
 
     /**
      * @ORM\OneToOne(targetEntity=Property::class, mappedBy="features", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      * @Groups({"feature_get_full", "feature_get"})
      */
-    private ?Property $property;
+    private Property $property;
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getSize(): ?int
+    public function getSize(): int
     {
         return $this->size;
     }
 
     /**
-     * @param int|null $size
+     * @param int $size
      * @return $this
      */
     public function setSize(int $size): self
@@ -108,15 +109,15 @@ class Feature
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getRooms(): ?int
+    public function getRooms(): int
     {
         return $this->rooms;
     }
 
     /**
-     * @param int|null $rooms
+     * @param int $rooms
      * @return $this
      */
     public function setRooms(int $rooms): self
@@ -127,15 +128,15 @@ class Feature
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getBedrooms(): ?int
+    public function getBedrooms(): int
     {
         return $this->bedrooms;
     }
 
     /**
-     * @param int|null $bedrooms
+     * @param int $bedrooms
      * @return $this
      */
     public function setBedrooms(int $bedrooms): self
@@ -146,15 +147,15 @@ class Feature
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getBathrooms(): ?int
+    public function getBathrooms(): int
     {
         return $this->bathrooms;
     }
 
     /**
-     * @param int|null $bathrooms
+     * @param int $bathrooms
      * @return $this
      */
     public function setBathrooms(int $bathrooms): self
@@ -165,15 +166,15 @@ class Feature
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getGarages(): ?int
+    public function getGarages(): int
     {
         return $this->garages;
     }
 
     /**
-     * @param int|null $garages
+     * @param int $garages
      * @return $this
      */
     public function setGarages(int $garages): self
@@ -186,7 +187,7 @@ class Feature
     /**
      * @return Property
      */
-    public function getProperty(): ?Property
+    public function getProperty(): Property
     {
         return $this->property;
     }

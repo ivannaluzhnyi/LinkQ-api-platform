@@ -21,26 +21,27 @@ class Media
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $filename;
+    private string $filename;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $extension;
+    private string $extension;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"property_get_full", "address_get_full"})
      */
-    private ?string $uri;
+    private string $uri;
 
     /**
      * @ORM\ManyToOne(targetEntity=Property::class, inversedBy="medium")
+     * @ORM\JoinColumn(nullable=false)
      */
     private Property $property;
 
@@ -53,9 +54,9 @@ class Media
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getFilename(): ?string
+    public function getFilename(): string
     {
         return $this->filename;
     }
@@ -72,9 +73,9 @@ class Media
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getExtension(): ?string
+    public function getExtension(): string
     {
         return $this->extension;
     }
@@ -91,9 +92,9 @@ class Media
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getUri(): ?string
+    public function getUri(): string
     {
         return $this->uri;
     }
@@ -110,9 +111,9 @@ class Media
     }
 
     /**
-     * @return Property|null
+     * @return Property
      */
-    public function getProperty(): ?Property
+    public function getProperty(): Property
     {
         return $this->property;
     }

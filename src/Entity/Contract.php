@@ -20,40 +20,40 @@ class Contract
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private int $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
-    private ?float $price;
+    private int $price;
 
     /**
      * @ORM\OneToOne(targetEntity=Application::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Application $application;
+    private Application $application;
 
     /**
      * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return float|null
+     * @return int
      */
-    public function getPrice(): ?float
+    public function getPrice(): int
     {
         return $this->price;
     }
 
     /**
-     * @param float|null $price
+     * @param int $price
      * @return $this
      */
-    public function setPrice(float $price): self
+    public function setPrice(int $price): self
     {
         $this->price = $price;
 
@@ -63,7 +63,7 @@ class Contract
     /**
      * @return Application
      */
-    public function getApplication(): ?Application
+    public function getApplication(): Application
     {
         return $this->application;
     }

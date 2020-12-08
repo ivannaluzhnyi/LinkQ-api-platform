@@ -41,31 +41,31 @@ class Address
      * @ORM\Column(type="integer")
      * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
-    private ?int $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
-    private ?string $street;
+    private string $street;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
-    private ?string $zipcode;
+    private string $zipcode;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
-    private ?string $city;
+    private string $city;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
-    private ?string $country;
+    private string $country;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -82,13 +82,14 @@ class Address
     /**
      * @ORM\OneToOne(targetEntity=Property::class, mappedBy="address", cascade={"persist", "remove"})
      * @Groups({"address_get_full", "address_get"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private ?Property $property;
+    private Property $property;
 
     /**
      * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -96,7 +97,7 @@ class Address
     /**
      * @return string
      */
-    public function getStreet(): ?string
+    public function getStreet(): string
     {
         return $this->street;
     }
@@ -115,7 +116,7 @@ class Address
     /**
      * @return string
      */
-    public function getZipcode(): ?string
+    public function getZipcode(): string
     {
         return $this->zipcode;
     }
@@ -134,7 +135,7 @@ class Address
     /**
      * @return string
      */
-    public function getCity(): ?string
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -153,7 +154,7 @@ class Address
     /**
      * @return string
      */
-    public function getCountry(): ?string
+    public function getCountry(): string
     {
         return $this->country;
     }
@@ -210,7 +211,7 @@ class Address
     /**
      * @return Property
      */
-    public function getProperty(): ?Property
+    public function getProperty(): Property
     {
         return $this->property;
     }

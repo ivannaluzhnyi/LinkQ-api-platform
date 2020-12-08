@@ -55,7 +55,7 @@ class User implements UserInterface
      *     "address_get_full"
      * })
      */
-    private ?int $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="boolean")
@@ -74,7 +74,7 @@ class User implements UserInterface
      *     "address_get_full"
      * })
      */
-    private ?string $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="json")
@@ -113,8 +113,9 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Application::class, mappedBy="buyer", orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private Collection $applications;
+    private ?Collection $applications;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -124,15 +125,17 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Guarantor::class, mappedBy="userRelated", orphanRemoval=true)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"user_get_full", "user_get"})
      */
-    private Collection $guarantor;
+    private ?Collection $guarantor;
 
     /**
      * @ORM\OneToMany(targetEntity=Property::class, mappedBy="userRelated")
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"user_get_full", "user_get"})
      */
-    private Collection $property;
+    private ?Collection $property;
 
     public function __construct()
     {
@@ -142,17 +145,17 @@ class User implements UserInterface
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -368,18 +371,18 @@ class User implements UserInterface
     }
 
     /**
-     * @return float
+     * @return int|null
      */
-    public function getSalary(): ?float
+    public function getSalary(): ?int
     {
         return $this->salary;
     }
 
     /**
-     * @param float|null $salary
+     * @param int|null $salary
      * @return $this
      */
-    public function setSalary(?float $salary): self
+    public function setSalary(?int $salary): self
     {
         $this->salary = $salary;
 
@@ -387,18 +390,18 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Guarantor[]
+     * @return ?Collection|Guarantor[]
      */
-    public function getGuarantor(): Collection
+    public function getGuarantor(): ?Collection
     {
         return $this->guarantor;
     }
 
     /**
-     * @param Guarantor $guarantor
+     * @param ?Guarantor|null $guarantor
      * @return $this
      */
-    public function addGuarantor(Guarantor $guarantor): self
+    public function addGuarantor(?Guarantor $guarantor): self
     {
         if (!$this->guarantor->contains($guarantor)) {
             $this->guarantor[] = $guarantor;
@@ -409,10 +412,10 @@ class User implements UserInterface
     }
 
     /**
-     * @param Guarantor $guarantor
+     * @param ?Guarantor|null $guarantor
      * @return $this
      */
-    public function removeGuarantor(Guarantor $guarantor): self
+    public function removeGuarantor(?Guarantor $guarantor): self
     {
         if ($this->guarantor->contains($guarantor)) {
             $this->guarantor->removeElement($guarantor);
@@ -426,18 +429,18 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Property[]
+     * @return ?Collection|Property[]
      */
-    public function getProperty(): Collection
+    public function getProperty(): ?Collection
     {
         return $this->property;
     }
 
     /**
-     * @param Property $property
+     * @param ?Property|null $property
      * @return $this
      */
-    public function addProperty(Property $property): self
+    public function addProperty(?Property $property): self
     {
         if (!$this->property->contains($property)) {
             $this->property[] = $property;
@@ -448,10 +451,10 @@ class User implements UserInterface
     }
 
     /**
-     * @param Property $property
+     * @param ?Property|null $property
      * @return $this
      */
-    public function removeProperty(Property $property): self
+    public function removeProperty(?Property $property): self
     {
         if ($this->property->contains($property)) {
             $this->property->removeElement($property);
