@@ -41,7 +41,7 @@ class Media
 
     /**
      * @ORM\ManyToOne(targetEntity=Property::class, inversedBy="medium")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private Property $property;
 

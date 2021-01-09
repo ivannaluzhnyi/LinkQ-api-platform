@@ -76,7 +76,7 @@ class Feature
 
     /**
      * @ORM\OneToOne(targetEntity=Property::class, mappedBy="features", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"feature_get_full", "feature_get"})
      */
     private Property $property;

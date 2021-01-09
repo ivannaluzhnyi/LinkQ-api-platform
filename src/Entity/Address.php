@@ -82,7 +82,7 @@ class Address
     /**
      * @ORM\OneToOne(targetEntity=Property::class, mappedBy="address", cascade={"persist", "remove"})
      * @Groups({"address_get_full", "address_get"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private Property $property;
 

@@ -51,14 +51,14 @@ class Property
 
     /**
      * @ORM\OneToOne(targetEntity=Address::class, inversedBy="property", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"user_get_full", "property_get", "property_get_full", "feature_get_full"})
      */
     private Address $address;
 
     /**
      * @ORM\OneToOne(targetEntity=Feature::class, inversedBy="property", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      * @Groups({"property_get", "property_get_full", "address_get_full", "user_get_full"})
      */
     private Feature $features;

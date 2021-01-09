@@ -7,7 +7,6 @@ use App\Entity\Feature;
 use App\Entity\Property;
 use App\Repository\MediaRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
