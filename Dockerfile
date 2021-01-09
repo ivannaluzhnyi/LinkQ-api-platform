@@ -15,6 +15,8 @@ RUN apt-get clean
 RUN pecl install apcu
 RUN docker-php-ext-enable apcu
 RUN docker-php-ext-install intl opcache
-RUN mkdir -p /usr/share/nginx/html/public/upload && chmod -R 777 /usr/share/nginx/html/
 WORKDIR /usr/share/nginx/html
+RUN mkdir -p /usr/share/nginx/html/public/upload && chmod -R 777 /usr/share/nginx/html/
 RUN chmod -R 777 .
+COPY composer.json /usr/share/nginx/html/composer.json
+RUN composer install
