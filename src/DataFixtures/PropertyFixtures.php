@@ -43,6 +43,7 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
             $property = new Property();
             $property->setTitle($faker->sentence(5));
             $property->setDescription($faker->paragraph);
+            $property->setPrice($faker->numberBetween(50000, 1500000));
             $property->setAddress(
                 (new Address())
                     ->setStreet($faker->streetAddress)

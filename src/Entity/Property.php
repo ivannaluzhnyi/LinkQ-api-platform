@@ -14,7 +14,7 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"property_get"}},
+ *     normalizationContext={"groups"={"property_get_full"}},
  * )
  * @ApiFilter(SearchFilter::class, properties={"title": "partial"})
  * @ApiFilter(
@@ -48,6 +48,12 @@ class Property
      * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
      */
     private string $description;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
+     */
+    private int $price;
 
     /**
      * @ORM\OneToOne(targetEntity=Address::class, inversedBy="property", cascade={"persist", "remove"})
@@ -271,6 +277,24 @@ class Property
     {
         $this->userRelated = $userRelated;
 
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param int $price
+     * @return $this
+     */
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
         return $this;
     }
 }
