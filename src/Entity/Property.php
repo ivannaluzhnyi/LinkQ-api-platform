@@ -14,7 +14,16 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"property_get_full"}},
+ *     collectionOperations={
+ *          "get"={"normalization_context"={"groups"={"property_get"}}},
+ *          "post"={"normalization_context"={"groups"={"property_get"}}},
+ *     },
+ *     itemOperations={
+ *          "get"={"normalization_context"={"groups"={"property_get_full"}}},
+ *          "patch"={"normalization_context"={"groups"={"property_get"}}},
+ *          "put"={"normalization_context"={"groups"={"property_get"}}},
+ *          "delete"={"normalization_context"={"groups"={"property_get"}}},
+ *     }
  * )
  * @ApiFilter(SearchFilter::class, properties={"title": "partial"})
  * @ApiFilter(
