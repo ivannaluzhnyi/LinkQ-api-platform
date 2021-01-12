@@ -20,10 +20,10 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
  * @ApiResource(
  *     normalizationContext={"groups"={"user_get"}},
  *     itemOperations={
- *         "get",
- *         "delete",
- *         "put",
- *         "patch",
+ *          "get"={"normalization_context"={"groups"={"user_get_full"}}},
+ *          "patch"={"normalization_context"={"groups"={"user_get"}}},
+ *          "put"={"normalization_context"={"groups"={"user_get"}}},
+ *          "delete"={"normalization_context"={"groups"={"user_get"}}},
  *     }
  * )
  * @ApiFilter(
