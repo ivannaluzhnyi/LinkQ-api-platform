@@ -225,9 +225,9 @@ class Address
         $this->property = $property;
 
         // set the owning side of the relation if necessary
-        if ($property->getFeatures() !== $this) {
-            $property->setFeatures($this);
-        }
+        // if ($property->getFeatures() !== $this) {
+        //     $property->setFeatures($this);
+        // }
 
         return $this;
     }

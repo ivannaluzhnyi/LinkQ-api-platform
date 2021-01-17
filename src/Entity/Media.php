@@ -35,7 +35,7 @@ class Media
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"property_get_full", "address_get_full"})
+     * @Groups({"property_get_full", "address_get_full", "feature_get_full"})
      */
     private string $uri;
 

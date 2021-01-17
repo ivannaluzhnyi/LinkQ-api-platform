@@ -6,14 +6,25 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\FeatureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
- * @ApiResource(
- *     normalizationContext={"groups"={"feature_get"}},
+ *  @ApiResource(
+ *     collectionOperations={
+ *          "get"={"normalization_context"={"groups"={"feature_get_full"}}},
+ *          "post"={"normalization_context"={"groups"={"feature_get"}}},
+ *     },
+ *     itemOperations={
+ *          "get"={"normalization_context"={"groups"={"feature_get"}}},
+ *          "patch"={"normalization_context"={"groups"={"feature_get"}}},
+ *          "put"={"normalization_context"={"groups"={"feature_get"}}},
+ *          "delete"={"normalization_context"={"groups"={"feature_get"}}},
+ *     }
  * )
+ * @ApiFilter(RangeFilter::class, properties={"rooms","size","bedrooms","bathrooms","garages"})
  * @ApiFilter(
  *     SearchFilter::class,
  *     properties={

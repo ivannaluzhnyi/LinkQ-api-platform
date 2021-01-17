@@ -42,25 +42,25 @@ class Property
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
+     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
      */
     private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
+     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
      */
     private string $title;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
+     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
      */
     private string $description;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full"})
+     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
      */
     private int $price;
 
@@ -80,7 +80,7 @@ class Property
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="property")
-     * @Groups({"property_get", "property_get_full", "address_get_full"})
+     * @Groups({"property_get", "property_get_full", "address_get_full", "feature_get_full"})
      */
     private Collection $medium;
 
