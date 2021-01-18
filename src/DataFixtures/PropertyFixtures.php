@@ -12,19 +12,12 @@ use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
 /**
- * Class PropertyFixtures
- * @package App\DataFixtures
+ * Class PropertyFixtures.
  */
 class PropertyFixtures extends Fixture implements DependentFixtureInterface
 {
-    /**
-     * @var int
-     */
     private int $mediaCursor;
 
-    /**
-     * @var MediaRepository
-     */
     private MediaRepository $mediaRepository;
 
     public function __construct(MediaRepository $mediaRepository)
@@ -33,14 +26,10 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
         $this->mediaCursor = 0;
     }
 
-    /**
-     * @param ObjectManager $manager
-     */
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
         for ($i = 0; $i < 60; ++$i) {
-
             $feature = (new Feature())
                     ->setSize($faker->numberBetween(9, 250))
                     ->setRooms($faker->numberBetween(1, 10))
@@ -48,13 +37,12 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
                     ->setBedrooms($faker->numberBetween(1, 5))
                     ->setGarages($faker->numberBetween(1, 3));
 
-            
             $address = (new Address())
                 ->setStreet($faker->streetAddress)
                 ->setZipcode($faker->postcode)
                 ->setCity($faker->city)
                 ->setCountry($faker->country);
-                
+
             $manager->persist($address);
             $manager->persist($feature);
             $property = new Property();
@@ -88,7 +76,7 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            MediaFixtures::class
+            MediaFixtures::class,
         ];
     }
 }
