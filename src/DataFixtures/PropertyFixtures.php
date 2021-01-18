@@ -43,7 +43,7 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
                 ->setCity($faker->city)
                 ->setCountry($faker->country)
                 ->setFloor($faker->numberBetween(1, 10))
-                ->setRoom($faker->numberBetween(1,100));
+                ->setRoom($faker->numberBetween(1, 100));
 
             $manager->persist($address);
             $manager->persist($feature);
