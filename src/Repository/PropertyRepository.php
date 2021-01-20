@@ -28,6 +28,6 @@ class PropertyRepository extends ServiceEntityRepository
      */
     public function getFeaturedProperties(): array
     {
-        return $this->findBy([], [], 5);
+        return $this->findBy([], [], 9);
     }
 }
