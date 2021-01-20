@@ -22,4 +22,12 @@ class PropertyRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Property::class);
     }
+
+    /**
+     * @return Property[]
+     */
+    public function getFeaturedProperties(): array
+    {
+        return $this->findBy([], [], 5);
+    }
 }
