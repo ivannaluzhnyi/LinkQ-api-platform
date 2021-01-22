@@ -34,7 +34,7 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
  *      "whitelist": NULL
  *     }
  * )
- * @ApiFilter(SearchFilter::class, properties={"firstname": "partial", "lastname": "partial"})
+ * @ApiFilter(SearchFilter::class, properties={"firstname": "partial", "lastname": "partial", "email": "exact"})
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="account")
  */
