@@ -58,10 +58,10 @@ class User implements UserInterface
     private int $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default":1})
      * @Groups({"user_get_full", "user_get"})
      */
-    private bool $is_active;
+    private bool $is_active = TRUE;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
