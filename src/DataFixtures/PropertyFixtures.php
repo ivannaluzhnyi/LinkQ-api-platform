@@ -54,6 +54,7 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
             $property->setAddress($address);
             $property->setFeatures($feature);
             $property->setUserRelated(null);
+            $property->setStatus(true);
 
             $nbOfMedias = rand(1, 5);
 
