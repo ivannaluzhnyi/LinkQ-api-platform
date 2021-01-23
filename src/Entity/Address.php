@@ -87,16 +87,16 @@ class Address
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "address_get_post", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
     private ?int $room;
 
     /**
      * @ORM\OneToOne(targetEntity=Property::class, mappedBy="address", cascade={"persist", "remove"})
-     * @Groups({"address_get_full", "address_get"})
+     * @Groups({ "address_get", "address_get_full"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private Property $property;
+    private ?Property $property;
 
     /**
      * @return int
