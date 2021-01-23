@@ -12,7 +12,14 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"address_get"}},
+ *     collectionOperations={
+ *          "get"={"normalization_context"={"groups"={"address_get"}}},
+ *          "post"={
+ *              "normalization_context"={"groups"={"address_get_post"}},
+ *              "denormalizationContext"={"groups"={"address_get_post"}}
+ *           },
+ *     },
+
  * )
  * @ApiFilter(
  *     SearchFilter::class,
