@@ -57,19 +57,19 @@ class Address
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "address_get_post", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
     private string $street;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "address_get_post", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
     private string $zipcode;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "address_get_post", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
     private string $city;
 
