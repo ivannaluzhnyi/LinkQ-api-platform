@@ -17,7 +17,11 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
  * @ApiResource(
  *     collectionOperations={
  *          "get"={"normalization_context"={"groups"={"property_get"}}},
- *          "post"={"normalization_context"={"groups"={"property_get"}}},
+ *          "post"={
+ *              "normalization_context"={"groups"={"property_get"}},
+ *              "denormalizationContext"={"groups"={"property_get_post"}}
+ *           },
+
  *          "get_featured_properties="={
  *             "method"="GET",
  *             "path"="/properties/featured",
