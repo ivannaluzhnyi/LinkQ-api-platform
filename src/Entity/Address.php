@@ -19,7 +19,12 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
  *              "denormalizationContext"={"groups"={"address_get_post"}}
  *           },
  *     },
-
+ *     itemOperations={
+ *          "get"={"normalization_context"={"groups"={"address_get"}}},
+ *          "patch"={"normalization_context"={"groups"={"address_get"}}},
+ *          "put"={"normalization_context"={"groups"={"address_get"}}},
+ *          "delete"={"normalization_context"={"groups"={"address_get"}}},
+ *     }
  * )
  * @ApiFilter(
  *     SearchFilter::class,
