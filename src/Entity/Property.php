@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Controller\FeaturedPropertiesController;
 use App\Repository\PropertyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,12 +20,6 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
  *              "normalization_context"={"groups"={"property_get"}},
  *              "denormalizationContext"={"groups"={"property_get_post"}}
  *           },
-
- *          "get_featured_properties="={
- *             "method"="GET",
- *             "path"="/properties/featured",
- *             "controller"=FeaturedPropertiesController::class,
- *          }
  *     },
  *     itemOperations={
  *          "get"={"normalization_context"={"groups"={"property_get_full"}}},
@@ -52,47 +45,47 @@ class Property
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "property_get", "property_get_post", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
      */
     private int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "property_get", "property_get_post", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
      */
     private string $title;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "property_get", "property_get_post", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
      */
     private string $description;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"user_get_full", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "property_get", "property_get_post", "property_get", "property_get_full", "address_get_full", "feature_get_full"})
      */
     private int $price;
 
     /**
      * @ORM\OneToOne(targetEntity=Address::class, inversedBy="property", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
-     * @Groups({"user_get_full", "property_get", "property_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "property_get_post", "property_get_full", "feature_get_full"})
      */
-    private Address $address;
+    private ?Address $address;
 
     /**
      * @ORM\OneToOne(targetEntity=Feature::class, inversedBy="property", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
-     * @Groups({"property_get", "property_get_full", "address_get_full", "user_get_full"})
+     * @Groups({"property_get_full", "property_get", "address_get_full", "user_get_full"})
      */
-    private Feature $features;
+    private ?Feature $features;
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="property")
-     * @Groups({"property_get", "property_get_full", "address_get_full", "feature_get_full"})
+     * @Groups({"property_get_full", "property_get", "address_get_full", "feature_get_full"})
      */
-    private Collection $medium;
+    private ?Collection $medium;
 
     /**
      * @ORM\OneToMany(targetEntity=Application::class,
@@ -101,11 +94,11 @@ class Property
      *     cascade={"persist", "remove"}
      * )
      */
-    private Collection $applications;
+    private ?Collection $applications;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="property")
-     * @Groups({"property_get", "property_get_full", "feature_get_full"})
+     * @Groups({"property_get", "property_get_post", "property_get_full", "feature_get_full"})
      */
     private ?User $userRelated;
 
@@ -340,5 +333,4 @@ class Property
         $this->status = $status;
         return $this;
     }
-
 }
