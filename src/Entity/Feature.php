@@ -15,7 +15,10 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
  *  @ApiResource(
  *     collectionOperations={
  *          "get"={"normalization_context"={"groups"={"feature_get_full"}}},
- *          "post"={"normalization_context"={"groups"={"feature_get"}}},
+ *          "post"={
+ *              "normalization_context"={"groups"={"feature_get_post"}},
+ *              "denormalizationContext"={"groups"={"feature_get_post"}}
+ *           },
  *     },
  *     itemOperations={
  *          "get"={"normalization_context"={"groups"={"feature_get"}}},
@@ -51,46 +54,46 @@ class Feature
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
+     * @Groups({"property_get_full", "feature_get_post", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private int $id;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
+     * @Groups({"property_get_full", "feature_get_post", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private int $size;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
+     * @Groups({"property_get_full", "feature_get_post", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private int $rooms;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
+     * @Groups({"property_get_full", "feature_get_post", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private int $bedrooms;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
+     * @Groups({"property_get_full", "feature_get_post", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private int $bathrooms;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"property_get_full", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
+     * @Groups({"property_get_full", "feature_get_post", "feature_get_full", "address_get_full", "feature_get", "user_get_full"})
      */
     private int $garages;
 
     /**
      * @ORM\OneToOne(targetEntity=Property::class, mappedBy="features", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
-     * @Groups({"feature_get_full", "feature_get"})
+     * @Groups({"feature_get", "feature_get_full"})
      */
-    private Property $property;
+    private ?Property $property;
 
     /**
      * @return int
