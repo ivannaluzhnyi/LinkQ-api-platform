@@ -110,6 +110,12 @@ class Property
     private ?User $userRelated;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @Groups({"user_get_full", "property_get", "property_get_post", "property_get_full", "address_get_full", "feature_get_full"})
+     */
+    private bool $status;
+
+    /**
      * Property constructor.
      */
     public function __construct()
@@ -316,4 +322,23 @@ class Property
         $this->price = $price;
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isStatus(): bool
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param bool $status
+     * @return $this
+     */
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+        return $this;
+    }
+
 }
