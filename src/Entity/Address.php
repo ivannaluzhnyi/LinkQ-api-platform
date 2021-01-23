@@ -51,7 +51,7 @@ class Address
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user_get_full", "property_get_full", "address_get", "address_get_full", "feature_get_full"})
+     * @Groups({"user_get_full", "address_get_post","property_get_full", "address_get", "address_get_full", "feature_get_full"})
      */
     private int $id;
 
