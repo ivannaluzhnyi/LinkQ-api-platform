@@ -83,7 +83,7 @@ class Property
 
     /**
      * @ORM\OneToMany(targetEntity=Media::class, mappedBy="property")
-     * @Groups({"property_get_full", "property_get", "address_get_full", "feature_get_full"})
+     * @Groups({"property_get_full", "property_get", "address_get_full", "feature_get_full", "user_get_full"})
      */
     private ?Collection $medium;
 

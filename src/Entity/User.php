@@ -18,7 +18,7 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
 
 /**
  * @ApiResource(
- *     normalizationContext={"groups"={"user_get"}},
+ *     normalizationContext={"groups"={"user_get_full"}},
  *     itemOperations={
  *          "get"={"normalization_context"={"groups"={"user_get_full"}}},
  *          "patch"={"normalization_context"={"groups"={"user_get"}}},
