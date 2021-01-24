@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\PropertyRepository;
+use App\Controller\FeaturedPropertiesController;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,8 +19,12 @@ use ApiPlatform\Core\Serializer\Filter\GroupFilter;
  *          "get"={"normalization_context"={"groups"={"property_get"}}},
  *          "post"={
  *              "normalization_context"={"groups"={"property_get"}},
- *              "denormalizationContext"={"groups"={"property_get_post"}}
- *           },
+ *              "denormalizationContext"={"groups"={"property_get_post"}}},
+ *          "get_featured_properties="={
+ *             "method"="GET",
+ *             "path"="/properties/featured",
+ *             "controller"=FeaturedPropertiesController::class,
+ *          }
  *     },
  *     itemOperations={
  *          "get"={"normalization_context"={"groups"={"property_get_full"}}},
